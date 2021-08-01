@@ -2,30 +2,56 @@ package deck
 
 import (
 	"fmt"
+	"io/ioutil"
 	"math/rand"
+	"strings"
 	"time"
 )
 
 type Deck []string
 
-func (d Deck) DealHand(handSize int) (hand Deck, deck Deck) {
+func (d Deck) SaveToFile(filename string) error {
+	bytes := []byte(d.ToString())
+	return ioutil.WriteFile(filename, bytes, 0666)
+}
+
+func NewDeckFromFile(filename string) Deck {
+	bytes, err := ioutil.ReadFile(filename)
+	if err != nil {
+		fmt.Printf("Error: %v\n", err)
+		panic("Mayday, mayday, mayday...")
+		// return NewDeck()
+	}
+
+	cards := strings.Split(string(bytes), "|")
+	return Deck(cards)
+	// deck := Deck{}
+	// for _, card := range cards {
+	// 	deck = append(deck, card)
+	// }
+	// return deck
+}
+
+func (d Deck) DealHand(handSize int) (hand Deck, remainingDeck Deck) {
 	rand.Seed(time.Now().UnixNano())
 	hand = Deck{}
+	remainingDeck = append(Deck{}, d[:]...)
 
 	for i := 0; i < handSize; i++ {
-		randomIndex := rand.Intn((len(d) - 1) - i)
-		hand = append(hand, d[randomIndex])
+		randomIndex := rand.Intn((len(remainingDeck) - 1) - i)
+		hand = append(hand, remainingDeck[randomIndex])
 		switch randomIndex {
 		case 0:
-			d = d[1:]
+			remainingDeck = remainingDeck[1:]
 		case len(d):
-			d = d[:(len(d)-1)]
+			remainingDeck = remainingDeck[:(len(d) - 1)]
 		default:
-			d = append(d[:randomIndex], d[(randomIndex+1):]...)
+			remainingDeck = append(remainingDeck[:randomIndex], remainingDeck[(randomIndex+1):]...)
 		}
 	}
 
-	return hand, append(Deck{}, d[:len(d)]...)
+	remainingDeck = append(Deck{}, remainingDeck[:]...)
+	return hand, remainingDeck
 }
 
 func (d Deck) NewCard() string {
@@ -36,7 +62,7 @@ func (d Deck) Print() {
 	fmt.Println("Cards in the deck:")
 	for i, card := range d {
 		fmt.Printf("   %v, %v\n", i, card)
-	}	
+	}
 }
 
 func NewDeck() Deck {
@@ -44,7 +70,7 @@ func NewDeck() Deck {
 	suits := [4]string{"Hearts", "Diamonds", "Clubs", "Spades"}
 	values := [13]string{
 		"Ace", "King", "Queen", "Jack",
-		"10", "9", "8", "7", "6", "5", 
+		"10", "9", "8", "7", "6", "5",
 		"4", "3", "2",
 	}
 
@@ -55,4 +81,8 @@ func NewDeck() Deck {
 	}
 
 	return deck
+}
+
+func (d Deck) ToString() string {
+	return strings.Join([]string(d), "|")
 }
