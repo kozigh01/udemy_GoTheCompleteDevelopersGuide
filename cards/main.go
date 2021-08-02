@@ -14,7 +14,9 @@ func main() {
 
 	deck1 := deck.NewDeck()
 	nicePrint(fmt.Sprintf("deck = %v (type: %T, len: %v, cap: %v)\n", deck1, deck1, len(deck1), cap(deck1)))
-	// deck1.Print()
+	deck1.Print()
+	deck1.Shuffle()
+	deck1.Print()
 	
 	// handSize := 5
 	// hand, remainingDeck := deck1.DealHand(handSize)

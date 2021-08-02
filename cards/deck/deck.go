@@ -10,6 +10,16 @@ import (
 
 type Deck []string
 
+func (d Deck) Shuffle() {
+	rand.Seed(time.Now().UnixNano())
+	for i := 0; i < 10; i++ {
+		for i := range d {
+			randIndex := rand.Intn(len(d))
+			d[i], d[randIndex] = d[randIndex], d[i]
+		}		
+	}
+}
+
 func (d Deck) SaveToFile(filename string) error {
 	bytes := []byte(d.ToString())
 	return ioutil.WriteFile(filename, bytes, 0666)
@@ -25,11 +35,6 @@ func NewDeckFromFile(filename string) Deck {
 
 	cards := strings.Split(string(bytes), "|")
 	return Deck(cards)
-	// deck := Deck{}
-	// for _, card := range cards {
-	// 	deck = append(deck, card)
-	// }
-	// return deck
 }
 
 func (d Deck) DealHand(handSize int) (hand Deck, remainingDeck Deck) {
