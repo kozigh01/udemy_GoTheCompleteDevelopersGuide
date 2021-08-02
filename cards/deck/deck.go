@@ -16,7 +16,7 @@ func (d Deck) Shuffle() {
 		for i := range d {
 			randIndex := rand.Intn(len(d))
 			d[i], d[randIndex] = d[randIndex], d[i]
-		}		
+		}
 	}
 }
 
@@ -66,7 +66,7 @@ func (d Deck) NewCard() string {
 func (d Deck) Print() {
 	fmt.Println("Cards in the deck:")
 	for i, card := range d {
-		fmt.Printf("   %v, %v\n", i, card)
+		fmt.Printf("   %02d, %v\n", i, card)
 	}
 }
 
@@ -81,7 +81,7 @@ func NewDeck() Deck {
 
 	for _, suit := range suits {
 		for _, value := range values {
-			deck = append(deck, fmt.Sprintf("%s %s", suit, value))
+			deck = append(deck, fmt.Sprintf("%s of %s", value, suit))
 		}
 	}
 
