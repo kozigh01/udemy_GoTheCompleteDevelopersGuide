@@ -37,7 +37,7 @@ func NewDeckFromFile(filename string) Deck {
 	return Deck(cards)
 }
 
-func (d Deck) DealHand(handSize int) (hand Deck, remainingDeck Deck) {
+func DealHand(d Deck, handSize int) (hand Deck, remainingDeck Deck) {
 	rand.Seed(time.Now().UnixNano())
 	hand = Deck{}
 	remainingDeck = append(Deck{}, d[:]...)

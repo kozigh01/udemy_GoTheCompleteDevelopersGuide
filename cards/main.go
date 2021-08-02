@@ -18,11 +18,11 @@ func main() {
 	deck1.Shuffle()
 	deck1.Print()
 	
-	// handSize := 5
-	// hand, remainingDeck := deck1.DealHand(handSize)
-	// hand.Print()
-	// remainingDeck.Print()
-	// deck1.Print()
+	handSize := 5
+	hand, remainingDeck := deck.DealHand(deck1, handSize)
+	hand.Print()
+	remainingDeck.Print()
+	deck1.Print()
 
 	deckToSave := deck.Deck{"A","B","C","D"}
 	deckToSave.SaveToFile("mydeck")
