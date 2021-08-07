@@ -5,5 +5,6 @@ import (
 )
 
 func main() {
-	mymap.Maps1()
+	// mymap.Maps1()
+	mymap.Maps2()
 }
