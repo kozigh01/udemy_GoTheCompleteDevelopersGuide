@@ -59,4 +59,16 @@ func struct03() {
 		},
 	}
 	billy.Print()
+
+	billy.UpdateName("bobby")
+	billy.Print()
+	
+	(&billy).UpdateName2("bobby")
+	billy.Print()
+
+	billy.UpdateName2("bubby")
+	billy.Print()
+
+	(&billy).UpdateName("carl")
+	billy.Print()
 }
