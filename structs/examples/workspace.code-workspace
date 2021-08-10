@@ -8,6 +8,9 @@
 		},
 		{
 			"path": "../../maps"
+		},
+		{
+			"path": "../../interfaces"
 		}
 	],
 	"settings": {}

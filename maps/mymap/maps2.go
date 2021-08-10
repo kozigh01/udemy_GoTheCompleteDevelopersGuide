@@ -19,6 +19,6 @@ func Maps2() {
 
 func printMap(colors map[string]string) {
 	for color, hexCode := range colors {
-		fmt.Printf("Color: %v is hex code %v\n", color, hexCode)
+		fmt.Printf("Color: %q is hex code %q\n", color, hexCode)
 	}
 }
