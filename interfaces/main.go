@@ -30,5 +30,7 @@ func main() {
 	// var test1 langbot2.Bot = langbot2.EnglishBot{}
 	// langbot2.PrintGreeting(test1)
 
-	interfaces.HttpGet()
+	// interfaces.HttpGet()
+	interfaces.LogWriterExample()
+	
 }
